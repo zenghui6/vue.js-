@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!-- 引入vue.js -->
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+</head>
+<body>
+<div id='app'>
+    <input type="button" value="toggle" @click="flag = !flag">
+    <!-- 使用 :duration="毫秒值" 设置进场和出场 时候的动画时长 -->
+    <!-- 使用 :duration="{enter:毫秒值,leave:毫秒值}" 分别设置进场和出场的动画时间值 -->
+    <transition enter-active-class="bounceIn" leave-active-class="bounceOut">
+        <h3 v-if="flag"  class="animated">hello vue.js</h3>
+    </transition>
+</div>
+
+</body>
+<script type="text/javascript">
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            flag: false
+        },
+        methods: {}
+    })
+</script>
+</html>

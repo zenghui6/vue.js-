@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!-- 引入vue.js -->
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+    <div id="app">
+        <!-- 如果要使用组件，直接，把组件的名称，以 HTML 标签的形式，引入到页面中，即可-->
+        <mycom1></mycom1>
+        <login></login>
+    </div>
+    <div id="app2">
+        <mycom2></mycom2>
+        <template id="tmp1">
+            <h1>私有的的login组件</h1>
+        </template>
+        <mycom3></mycom3>
+    </div>
+    <!-- 组件也只能在Vue实例中运行-->
+    <mycom2></mycom2>
+<!-- 在被控制的#app的外面，可以使用 template 元素，定义 （不是使用）组件的HTML模块结构-->
+    <template id="tmp2">
+        <div>
+            <h1>外部使用template定义HTML模块结构组件</h1>
+        </div>
+    </template>
+
+
+</body>
+<script type="text/javascript">
+    //注意：无论哪种方式创建出来的组件，template 模板只能有 一个根元素
+    //方法1：
+    // 1.1使用Vue.extend 来创建全局组件
+    var com1 = Vue.extend({
+        //通过template 属性，指定组件要展示的HTML结构
+        template: '<h1>这是使用Vue.extend 创建的组件</h1>'
+    })
+    //1.2 使用Vue.component('组件的名称', 创建出来的组件模板对象)注册组件//感觉类似于 类的实例化
+    //可使用 驼峰命名法，但标签中要使用 - 连接
+    Vue.component('mycom1',com1)
+
+    //方法2：
+    //直接使用Vue.component直接使用
+    Vue.component('mycom2',{
+        template: '<div><h3>这是直接使用 Vue.component 创建出来的组件</h3><span>与h3同级，需要用一个根元素</span></div>'
+    })
+
+    Vue.component('mycom3',{
+        template: '#tmp2'
+    })
+
+    var vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        filters: {},
+        directives: {},
+        components:{//定义实例内部私有组件
+            login:{
+                template:"<h1>私有的login组件</h1>"
+            },
+            login2:{
+                template:"#tmp1"
+            }
+        },
+
+        beforeCreate() {},
+        created(){},
+        beforeMount() {},
+        mounted() {},
+        beforeUpdate() {},
+        updated() {}
+
+    })
+
+    let vm2 = new Vue({
+        el: '#app2',
+        data: {},
+
+    })
+</script>
+</html>

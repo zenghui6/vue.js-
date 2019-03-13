@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!-- 引入vue.js -->
+    <script src='https://cdn.jsdelivr.net/npm/vue/dist/vue.js'></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+<div id="app">
+    <h2>使用v-if v-else 切换组件，但这只能切换两个</h2>
+    <a href="#" @click="flag=true" >登录</a>
+    <a href="#" @click="flag=false">注册</a>
+    <login v-if="flag"></login>
+    <register v-else="flag"></register>
+
+    <h2>使用component占位符，切换组件，可以有多个</h2><!-- component 是Vue 提供的标签 绑定is="'标签名'" 即可显示对应组件-->
+    <a href="#" @click.prevent="componentId= 'login'" >登录</a>
+    <a href="#" @click.prevent="componentId= 'register'">注册</a>
+    <component :is="componentId"></component>
+</div>
+
+</body>
+<script type="text/javascript">
+    //定义组件、
+    Vue.component('login',{
+        template: '<h3>登录组件</h3>'
+    });
+    Vue.component('register',{
+        template: '<h3>注册组件</h3>'
+    })
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            flag: true,
+            componentId: 'login'
+        },
+        methods: {}
+    })
+</script>
+</html>
+<!-- 当前学过的Vue标签 -->
+<!--
+    <component :is="componentId"></component>   //组件占位符
+    <template></template>                       //外部定义模板
+    <transition></transition>                   //动画
+    <transition-group></transition-group>
+-->

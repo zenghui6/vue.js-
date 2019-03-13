@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>跑马灯</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<body>
+	<div id="app1">
+		<h3>{{msg}}</h3>
+		<input type="button" value="开始" @click="start">
+		<input type="button" value="停止" @click="stop">
+	</div>
+</body>
+
+<script type="text/javascript">
+	//实例化Vue对象
+	var app1 = new Vue({
+		el: '#app1',
+		data: {
+			msg: '这是一个跑马灯~~',
+			intervalid: null
+		},
+		//方法
+		methods: {
+			//开始方法
+			start: function(){
+				//如果已经有定时器则不在设置定时器
+				if(this.intervalid != null)
+					return;
+				//设置定时器
+				this.intervalid = setInterval(() => {		//箭头函数es6
+					//获取首字符
+					var start = this.msg.substring(0,1);
+					//截取剩下的
+					var end = this.msg.substring(1);
+					this.msg = end + start;
+				},500)
+			},
+			//停止方法
+			stop: function(){
+				clearInterval(this.intervalid);//清除定时器后，intervalid并不为空，无法再次开始，停止后赋值为空
+				this.intervalid = null;
+			}
+		}
+	})
+</script>
+</html>
